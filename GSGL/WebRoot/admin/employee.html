@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset="utf-8">
+    <title>项目管理</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+    <script src="../js/jquery-1.11.0.js"></script>
+    <script src="../layui/layui.js" charset="utf-8"></script>
+  </head>
+  <body>
+  	<div style="overflow:hidden;">
+		<input type="text" id="query_input" placeholder="请输入搜索关键字以回车开始查询" class="layui-input" style="width:30%;float:left;">
+		<a id="query_btn" class="layui-btn layui-btn-small" style="float:left;margin-left:10px;margin-top:4px;">查询</a>  
+	</div>
+<table class="layui-table" lay-data="{id:'employeeTab',loading:true,page:true,height:'full-60', url:'../apiserver?method=listAll&sqlapi=getEmp&keyword='}" >
+  <thead>
+    <tr>
+      <th lay-data="{field:'userno', width:130, sort: true}">人员账号</th>
+      <th lay-data="{field:'username', width:130, sort: true}">姓名</th>
+      <th lay-data="{field:'userpwd', width:130}">账户密码</th>
+      <th lay-data="{field:'leadername', width:100}">上级领导</th>
+      <th lay-data="{field:'createtime', width:160}">创建时间</th>
+      <th lay-data="{fixed: 'right', width:160, align:'center', toolbar: '#usercz'}">操作</th>
+    </tr>
+  </thead>
+</table>
+       
+<script type="text/html" id="usercz">
+	<a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
+  	<a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+  	<a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+</script> 
+<script>
+layui.use('table', function(){
+	  var table = layui.table;
+	  $('#query_input').keydown(function(e){
+		if(e.keyCode==13){
+			var keyword = $('#query_input').val();
+			//查询获取总条数
+			table.reload('employeeTab', {
+			  url: '../apiserver?method=listAll&sqlapi=getEmp&keyword='+keyword
+			});
+		}
+	  });
+		$("#query_btn").unbind().bind("click",function(){
+			var keyword = $('#query_input').val();
+			table.reload('employeeTab', {
+			  url: '../apiserver?method=listAll&sqlapi=getEmp&keyword='+keyword
+			});
+		});
+	});
+</script>
+  </body>
+</html>

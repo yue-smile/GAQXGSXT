@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>公安气象工时后台管理系统</title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" href="layui/css/layui.css" />
+<style>
+.layui-colla-title {
+	color: #f3f0f0;
+	background-color: #432A6C;
+}
+</style>
+</head>
+
+<body>
+	<div class="head">
+		<h2 class="title">工时管理系统</h2>
+		<div class="rightDiv">
+			<div class="exitDiv">
+				<img src="img/exit.png" /> <span>退出</span>
+			</div>
+			<div class="userDiv">
+				<img src="img/user.png" /> <span>欢迎你，管理员</span>
+			</div>
+		</div>
+		</div>
+	<div class="left">
+		<div class="layui-collapse" style="border:0px solid #e2e2e2">
+			<div class="layui-colla-item layui-nav-itemed" style="border:0px solid #e2e2e2;">
+				<h2 class="layui-colla-title">部门工时管理</h2>
+				<div class="layui-colla-content" style="padding:0; border:0px solid #e2e2e2;">
+					<a class="left_item" href="admin/employee.html" target="mainframe" >
+						<img src="img/icon1.png">
+						<span>人员信息管理</span>
+					</a>
+					<a class="left_item" href="admin/worktime.html" target="mainframe" >
+						<img src="img/icon1.png">
+						<span>人员工时管理</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<div class="layui-collapse" style="border:0px solid #e2e2e2">
+			<div class="layui-colla-item layui-nav-itemed" style="border:0px solid #e2e2e2;">
+				<h2 class="layui-colla-title">问题交流中心</h2>
+				<div class="layui-colla-content" style="padding:0; border:0px solid #e2e2e2;">
+					<a class="left_item" href="admin/notcompleted.html" target="mainframe" >
+						<img src="img/icon1.png">
+						<span>未解决问题</span>
+					</a>
+					<a class="left_item" href="admin/completed.html" target="mainframe" >
+						<img src="img/icon1.png">
+						<span>已解决问题</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="center" id="center" style="overflow:hidden;">
+		<iframe id="mainframe" name="mainframe" class="centerIframe"
+			style="border:0;width:100%;height:100%;" frameborder="0" scroll="no"> </iframe>
+	</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+<script src="layui/layui.js"></script>
+<script type="text/javascript" src="js/top.js"></script>
+<script type="text/javascript" src="js/check.js"></script>
+<script type="text/javascript" src="js/chart.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs title="SQL语句配置"> 
+	<login title="登录验证">select * from gl_user where userno = '#userno#'</login>
+
+	<getEmp title="获取人员信息">select t1.*,t2.username as leadername from gl_user t1 ,gl_user t2 where t1.leader = t2.userno and t1.flag = 1 and t1.userno in (select userno from gl_user where userno = '#userno#' or leader =  '#userno#') and (t1.userno  like '%#keyword#%' or t1.username  like '%#keyword#%' or t2.username  like '%#keyword#%')</getEmp>
+	
+	<getRecord title="获取人员工时信息">select t1.*,t2.username from gl_record t1 ,gl_user t2 where t1.userno = t2.userno  and t1.userno in (select userno from gl_user where userno = '#userno#' or leader =  '#userno#') and  (t1.WORKPROJECT  like '%#keyword#%' or t1.WORKTYPE  like '%#keyword#%' or t1.userno  like '%#keyword#%' or t1.createtime  like '%#keyword#%' or t2.username  like '%#keyword#%')</getRecord>
+	
+	<getCompleted title="获取已解决问题">select t.* from gl_xxjl t where t.isfinish = 0 and (t.question like '%#keyword#%' or  t.userno like '%#keyword#%' or  t.answerno like '%#keyword#%')</getCompleted>
+	
+	<getNotcompleted title="获取未解决问题">select t.* from gl_xxjl t where t.isfinish = 1 and (t.question like '%#keyword#%' or  t.userno like '%#keyword#%')</getNotcompleted>
+</configs>

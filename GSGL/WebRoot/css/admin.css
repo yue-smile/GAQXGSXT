@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+*{box-sizing:border-box;}
+html,body{padding:0;margin:0;}
+i,s,em{list-style:none;font-style:normal;}
+
+.admin_head{position:absolute;top:0;left:0;z-index:2;height:70px;width:100%;background:#23262E;}
+.admin_head .title{color:#fefefe;line-height:70px;font-size:24px;padding-left:20px;}
+.admin_head .title em{font-size:20px;padding-left:20px;}
+.admin_left{top:70px !important;border-radius:0px !important;}
+.admin_center{position:absolute;top:0;left:0;width:100%;height:100%;padding:70px 0px 0px 200px;background:#fff;overflow:hidden;}
+.layui-tab-item{height:100%;}

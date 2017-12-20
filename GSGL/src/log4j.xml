@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//log4j/log4j Configuration//EN" "log4j.dtd">
+<log4j:configuration>
+	<!-- 
+	org.apache.log4j.RollingFileAppender(滚动文件，自动记录最新日志)
+	org.apache.log4j.ConsoleAppender (控制台)
+	org.apache.log4j.FileAppender (文件)
+	org.apache.log4j.DailyRollingFileAppender (每天产生一个日志文件)
+	org.apache.log4j.WriterAppender (将日志信息以流格式发送到任意指定的地方) 
+	OFF ,FATAL ,ERROR ,WARN ,INFO ,DEBUG ,ALL。
+	Log4j建议只使用FATAL ,ERROR ,WARN ,INFO ,DEBUG这五个级别。
+	%c        输出所属类的全名，可在修改为 %d{Num} ,Num类名输出的维（如："org.apache.elathen.ClassName",%C{2}将输出elathen.ClassName）
+	%d       输出日志时间其格式为 %d{yyyy-MM-dd HH:mm:ss,SSS}，可指定格式 如 %d{HH:mm:ss} 
+	%l        输出日志事件发生位置，包括类目名、发生线程，在代码中的行数 
+	%n       换行符
+	%m      输出代码指定信息，如info(“message”),输出message
+	%p       输出优先级，即 FATAL ,ERROR 等
+	%r        输出从启动到显示该log信息所耗费的毫秒数
+	%t        输出产生该日志事件的线程名
+	 -->
+    <!--输出到控制台-->
+    <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <param name="Threshold" value="DEBUG"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%p [%d{yyyy-MM-dd HH:mm:ss}][JHAppServer] - %c - %m%n"/>
+        </layout>
+    </appender>
+
+    <!--输出到文件（info）-->
+    <!--将生成“info.log.2014-06-11”这样的日志文件-->
+    <appender name="fileAppenderInfo" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${catalina.base}/logs/JHAppServer/info.log" />
+        <param name="DatePattern" value=".yyyy-MM-dd" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%p [%d{yyyy-MM-dd HH:mm:ss}][JHAppServer] - %l - %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="INFO" />
+            <param name="LevelMax" value="INFO" />
+        </filter>
+    </appender>
+
+    <!--输出到文件（warn）-->
+    <appender name="fileAppenderWarn" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${catalina.base}/logs/JHAppServer/warn.log" />
+        <param name="DatePattern" value=".yyyy-MM-dd" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%p [%d{yyyy-MM-dd HH:mm:ss}][JHAppServer] - %l - %m%n"/>
+        </layout>
+
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="WARN" />
+            <param name="LevelMax" value="WARN" />
+        </filter>
+    </appender>
+
+    <!--输出到文件（error）-->
+    <appender name="fileAppenderError" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${catalina.base}/logs/JHAppServer/error.log" />
+        <param name="DatePattern" value=".yyyy-MM-dd" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%p [%d{yyyy-MM-dd HH:mm:ss}][JHAppServer] - %l - %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="ERROR" />
+            <param name="LevelMax" value="ERROR" />
+        </filter>
+    </appender>
+
+    <!--屏蔽所有org.springframework.*输出的Debug（及以下）信息-->
+    <logger name="org.springframework">
+        <level value="INFO"></level>
+    </logger>
+
+    <root>
+        <level value="ALL"/>
+        <appender-ref ref="consoleAppender" />
+        <appender-ref ref="fileAppenderInfo" />
+        <appender-ref ref="fileAppenderWarn" />
+        <appender-ref ref="fileAppenderError" />
+    </root>
+</log4j:configuration>

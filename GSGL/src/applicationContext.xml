@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<description>Spring Quick Start</description>
+	<!-- 开启Spring的Annotation注解处理器 -->
+	<context:annotation-config />
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<!-- 数据库基本信息配置 -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<!-- 部署环境 -->
+		<!--公司数据库-->
+		<property name="url" value="jdbc:oracle:thin:@192.168.10.167:1521:orclJH"></property>
+		<property name="username" value="JXT"></property>
+		<property name="password" value="JXT"></property>
+		
+		<property name="filters" value="stat" />
+		<!-- 最大并发连接数 -->
+		<property name="maxActive" value="1000" />
+		<!-- 初始化连接数量 -->
+		<property name="initialSize" value="1" />
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+		<!-- 最小空闲连接数 -->
+		<property name="minIdle" value="10" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="validationQuery" value="select sysdate from dual" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="maxOpenPreparedStatements" value="20" />
+		<!-- 打开 removeAbandoned 功能 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 1800 秒，也就是 30 分钟 -->
+		<property name="removeAbandonedTimeout" value="1800" />
+		<!-- 关闭 abanded 连接时输出错误日志 -->
+		<property name="logAbandoned" value="true" />
+	</bean>
+	<bean name="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+				<prop key="hibernate.connection.pool_size">50</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.use_sql_comments">false</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+			</props>
+		</property>
+	</bean>
+
+	<!-- 装配HibernateTemplate实例 -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<constructor-arg ref="sessionFactory" />
+	</bean>
+	<!-- 装配通用数据库访问类BaseDAOImpl -->
+	<bean id="baseDAOImpl" class="com.gaqx.dao.BaseDAOImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+</beans>
